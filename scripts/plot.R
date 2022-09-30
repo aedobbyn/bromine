@@ -1,28 +1,15 @@
 library(tidyverse)
 
-# Grab latest data
-latest <-
-  tibble(
-    file = fs::dir_ls(here::here("data"))
-  ) %>%
-  mutate(
-    date =
-      file %>%
-        str_extract("[0-9]+") %>%
-        as.integer()
-  ) %>%
-  arrange(desc(date)) %>%
-  pull(file)
+source(here::here("scripts/helpers.R"))
 
-# Read it in
-combined <- readr::read_csv(latest)
+data <- grab_latest()
 
 # Plot
-ggplot2::ggplot(combined, aes(start_time, usage, fill = source)) +
+ggplot2::ggplot(data, aes(start_time, usage, fill = source)) +
   geom_bar(stat = "identity")
 
 ggplot2::ggplot(
-  combined %>%
+  data %>%
     filter(source == "projected"),
   aes(start_time, usage, fill = source)
 ) +

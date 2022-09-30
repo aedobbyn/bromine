@@ -4,10 +4,13 @@
 
 ## tub log
 
+* sept 27
+  * 10pm: wei turns on hot tub to 104 for the first time
+
 * sept 28
-    * 6:30 - 8pm: wei cc dobby use hot tub
-    * wei showers
-    * wei turns it to 99 that night
+  * 6:30 - 8pm: wei cc dobby use hot tub
+  * wei showers
+  * wei turns it to 99 that night
 
 * sept 29
   * 10am: wei turns hot tub to 104
