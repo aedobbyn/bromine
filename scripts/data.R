@@ -25,9 +25,15 @@ file_tbl %>%
 
 # Read in projected data
 projected <-
-  readr::read_csv(path_projected) %>%
+  # Read in timestamps as characters to get correct timezone
+  readr::read_csv(path_projected, col_types = "ccdc") %>%
   janitor::clean_names() %>%
   mutate(
+    across(
+      c(start_time, end_time),
+      # Remove the weird minus 4 hours and take to datetime
+      ~ . %>% str_remove("-04:00") %>% lubridate::as_datetime()
+    ),
     source = "projected"
   ) %>%
   transmute(
@@ -101,3 +107,12 @@ combined <-
 # Plot
 ggplot2::ggplot(combined, aes(start_time, usage, fill = source)) +
   geom_bar(stat = "identity")
+
+ggplot2::ggplot(
+  combined %>% 
+    filter(source == "projected"), 
+  aes(start_time, usage, fill = source)
+  ) +
+  geom_bar(stat = "identity")
+  # scale_x_discrete(breaks = scales::date_breaks("15 mins"))
+
