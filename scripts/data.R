@@ -11,7 +11,7 @@ drive_folder <-
 
 # Using the id of the folder, get dataframe of files in that folder
 file_tbl <-
-  googledrive::drive_ls(folder$id)
+  googledrive::drive_ls(drive_folder$id)
 
 ### Projected
 
@@ -32,7 +32,9 @@ projected <-
     across(
       c(start_time, end_time),
       # Remove the weird minus 4 hours and take to datetime
-      ~ . %>% str_remove("-04:00") %>% lubridate::as_datetime()
+      ~ . %>%
+        str_remove("-04:00") %>%
+        lubridate::as_datetime()
     ),
     source = "projected"
   ) %>%
@@ -63,10 +65,10 @@ real_usage_tbl <-
 real_raw <- tibble()
 
 # For each real usage file, download it and read it in as a csv
-for (i in 1:nrow(real_usage)) {
-  path_local <- glue::glue("{dir}/real_usage_{real_usage$date_start[i]}_{real_usage$date_end[i]}.csv")
+for (i in 1:nrow(real_usage_tbl)) {
+  path_local <- glue::glue("{dir}/real_usage_{real_usage_tbl$date_start[i]}_{real_usage_tbl$date_end[i]}.csv")
 
-  real_usage %>%
+  real_usage_tbl %>%
     slice(i) %>%
     pull(id) %>%
     googledrive::drive_download(path_local, overwrite = TRUE)
@@ -84,6 +86,7 @@ real <-
   distinct() %>%
   janitor::clean_names() %>%
   mutate(
+    # Combine date and time into a datetime to match projected
     start_time = glue::glue("{date} {start_time}") %>% lubridate::as_datetime(),
     end_time = glue::glue("{date} {end_time}") %>% lubridate::as_datetime(),
     source = "real"
@@ -104,15 +107,5 @@ combined <-
     start_time, end_time
   )
 
-# Plot
-ggplot2::ggplot(combined, aes(start_time, usage, fill = source)) +
-  geom_bar(stat = "identity")
-
-ggplot2::ggplot(
-  combined %>% 
-    filter(source == "projected"), 
-  aes(start_time, usage, fill = source)
-  ) +
-  geom_bar(stat = "identity")
-  # scale_x_discrete(breaks = scales::date_breaks("15 mins"))
-
+# Write out
+readr::write_csv(combined, glue::glue(here::here("data/{lubridate::today() %>% str_remove_all('-')}.csv")))
