@@ -4,16 +4,16 @@
 
 ## tub log
 
-sept 28
-  6:30 - 8pm: wei cc dobby use hot tub
-  wei showers
-  wei turns it to 99 that night
+* sept 28
+    * 6:30 - 8pm: wei cc dobby use hot tub
+    * wei showers
+    * wei turns it to 99 that night
 
-sept 29
-  10am: wei turns hot tub to 104
-  3pm: hot tub hits 104
-  8:30pm: wei julie marié dobby get in hot tub
-  1am: turned off hot tub
+* sept 29
+  * 10am: wei turns hot tub to 104
+  * 3pm: hot tub hits 104
+  * 8:30pm: wei julie marié dobby get in hot tub
+  * 1am: turned off hot tub
 
-sept 30
-  morning: load of laundry & dishwasher
+* sept 30
+  * morning: load of laundry & dishwasher
