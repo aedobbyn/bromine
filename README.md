@@ -20,3 +20,6 @@
 
 * sept 30
   * morning: load of laundry & dishwasher
+  
+* oct 3 (it's october third)
+  * evening: dobby turns hot tub to 104
