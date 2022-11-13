@@ -5,8 +5,8 @@ file_name <- "data/weather/historic.csv"
 file_exists <- fs::file_exists(file_name)
 
 # Parameters for the Open Meteo API
-latitude <- "40.6816443"
-longitude <- "-73.9543159"
+latitude <- "40.680745"
+longitude <- "-73.953425"
 metrics <- c("temperature_2m", "relativehumidity_2m", "rain", "snowfall", "cloudcover", "windspeed_10m")
 start_date <- "2020-01-01"
 end_date <- lubridate::today()
